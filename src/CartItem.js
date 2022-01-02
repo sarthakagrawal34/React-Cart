@@ -15,7 +15,20 @@ class CartItem extends React.Component {
     }
     // Third way to bind the functiom
     increaseQuantity= () => {
-        console.log('this',this.state);
+        // console.log('this',this.state);
+        // this.state.qty+=1; This statement only increase qty but doesn't re-render the state
+        
+        // setState Form-I used when we didn't use the prevState
+        // this.setState({
+        //     qty: this.state.qty+1
+        // });
+
+        // setState Form-II- if previous state is required
+        this.setState ((prevState) => {
+            return {
+                qty: prevState.qty+1
+            }
+        })
     }
     render(){
         // Using Object Destructuring so to extract all the properties at a single time
