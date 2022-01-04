@@ -13,7 +13,7 @@ class CartItem extends React.Component {
         // Second method to bind the function when there are multiple functions to bind we bind using this method
         // this.increaseQuantity=this.increaseQuantity.bind(this);
     }
-    // Third way to bind the functiom
+    // Third way to bind the function
     increaseQuantity= () => {
         // console.log('this',this.state);
         // this.state.qty+=1; This statement only increase qty but doesn't re-render the state
@@ -27,6 +27,25 @@ class CartItem extends React.Component {
         this.setState ((prevState) => {
             return {
                 qty: prevState.qty+1
+            }
+        })
+    }
+
+    decreaseQuantity= () => {
+        const {qty}= this.state;
+        if (qty===0)
+        {
+            return;
+        }
+        // setState Form-I used when we didn't use the prevState
+        // this.setState({
+        //     qty: this.state.qty-1
+        // });
+
+        // setState Form-II- if previous state is required
+        this.setState ((prevState) => {
+            return {
+                qty: prevState.qty-1
             }
         })
     }
@@ -54,11 +73,12 @@ class CartItem extends React.Component {
                             alt="decrease" 
                             className='action-icons' 
                             src="https://cdn-icons-png.flaticon.com/512/334/334047.png" 
+                            onClick={this.decreaseQuantity}
                         />
                         <img  
                             alt="delete" 
                             className='action-icons' 
-                            src="https://cdn-icons.flaticon.com/png/512/5676/premium/5676146.png?token=exp=1641014416~hmac=bb097dcfd72f69408db4f31d2f6556ab"
+                            src="https://cdn-icons.flaticon.com/png/512/3177/premium/3177433.png?token=exp=1641126127~hmac=91652b5be1b6efbeae680f8c5ca58706"
                         />
                     </div>
                 </div>
