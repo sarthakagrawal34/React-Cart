@@ -12,7 +12,25 @@ class CartItem extends React.Component {
         }
         // Second method to bind the function when there are multiple functions to bind we bind using this method
         // this.increaseQuantity=this.increaseQuantity.bind(this);
+
+        // Executing the testing function
+        // this.testing();
     }
+    
+    // Code to see how batching sometimes fails
+    // testing () {
+    //     const promise = new Promise ((resolve, reject) => {
+        //     setTimeout(() => { resolve('done');
+        //     }, 5000);
+    //     });
+    //     promise.then(() => {
+        // setState acts like a synchronus call this.setState({ qty: this.state.qty 10 });
+        //     this.setState({ qty: this.state.qty + 10 });
+        //     this.setState({ qty: this.state.qty + 10 });
+        //     console.log('state', this.state);
+    //     });
+    // }
+
     // Third way to bind the function
     increaseQuantity= () => {
         // console.log('this',this.state);
@@ -21,14 +39,24 @@ class CartItem extends React.Component {
         // setState Form-I used when we didn't use the prevState
         // this.setState({
         //     qty: this.state.qty+1
-        // });
+        // }, () => {});
 
         // setState Form-II- if previous state is required
         this.setState ((prevState) => {
             return {
                 qty: prevState.qty+1
             }
-        })
+        }, ()=> { console.log(this.state)})
+        // this.setState ((prevState) => {
+        //     return {
+        //         qty: prevState.qty+1
+        //     }
+        // }, ()=> { console.log(this.state)})
+        // this.setState ((prevState) => {
+        //     return {
+        //         qty: prevState.qty+1
+        //     }
+        // }, ()=> { console.log(this.state)})
     }
 
     decreaseQuantity= () => {
@@ -78,7 +106,7 @@ class CartItem extends React.Component {
                         <img  
                             alt="delete" 
                             className='action-icons' 
-                            src="https://cdn-icons.flaticon.com/png/512/3177/premium/3177433.png?token=exp=1641126127~hmac=91652b5be1b6efbeae680f8c5ca58706"
+                            src= "https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
                         />
                     </div>
                 </div>
