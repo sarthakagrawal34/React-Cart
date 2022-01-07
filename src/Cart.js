@@ -32,6 +32,7 @@ class Cart extends React.Component {
             ]
         }
     }
+    // Function to Increase the quantity
     handleIncreaseQuantity = (product) => {
         // console.log ("hey please increase the qty of ", product);
         // Taking out the list of products in a array
@@ -44,6 +45,7 @@ class Cart extends React.Component {
             products // or products: products we are writing shorthand notation is key and value are same
         });
     }
+    // Function to Decrease the quantity
     handleDecreaseQuantity = (product) => {
         // console.log ("hey please decrease the qty of ", product);
         // Taking out the list of products in a array
@@ -60,6 +62,17 @@ class Cart extends React.Component {
             products // or products: products we are writing shorthand notation is key and value are same
         });
     }
+    // Function to Delete the Product
+    handleDeleteProduct = (id) => {
+        const {products} = this.state;
+
+        const items = products.filter((item) => item.id !== id) // Returns an array of the remaining items
+
+        this.setState({
+            products : items
+        })
+    }
+
 
     render(){
         const {products} = this.state
@@ -76,6 +89,7 @@ class Cart extends React.Component {
                             // jsx = {<h1>TEST</h1>}
                             onIncreaseQuantity = {this.handleIncreaseQuantity}
                             onDecreaseQuantity = {this.handleDecreaseQuantity}
+                            onDeleteProduct = {this.handleDeleteProduct}
                         />
                     )
                })}

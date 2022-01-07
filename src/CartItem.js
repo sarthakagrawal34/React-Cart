@@ -79,7 +79,10 @@ class CartItem extends React.Component {
     // }
     render(){
         // Using Object Destructuring so to extract all the properties at a single time
+        // Extracting the products detail from product
         const {title,price,qty} = this.props.product;
+        // Extracting the products and functions from props
+        const {product, onIncreaseQuantity, onDecreaseQuantity, onDeleteProduct}= this.props;
         console.log('this.props', this.props);
         return(
             <div className='cart-item'>
@@ -98,19 +101,20 @@ class CartItem extends React.Component {
                             src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png"
                             // onClick={this.increaseQuantity.bind(this)} this is the naive method to bind here only
                             // onClick={this.increaseQuantity}
-                            onClick={() => this.props.onIncreaseQuantity(this.props.product)} 
+                            onClick={() => onIncreaseQuantity(product)} 
                         />
                         <img  
                             alt="decrease" 
                             className='action-icons' 
                             src="https://cdn-icons-png.flaticon.com/512/334/334047.png" 
                             // onClick={this.decreaseQuantity}
-                            onClick={() => this.props.onDecreaseQuantity(this.props.product)}
+                            onClick={() => onDecreaseQuantity(product)}
                         />
                         <img  
                             alt="delete" 
                             className='action-icons' 
                             src= "https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
+                            onClick={() => onDeleteProduct (product.id)}
                         />
                     </div>
                 </div>
