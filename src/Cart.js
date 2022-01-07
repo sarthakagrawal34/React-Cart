@@ -32,10 +32,39 @@ class Cart extends React.Component {
             ]
         }
     }
+    handleIncreaseQuantity = (product) => {
+        // console.log ("hey please increase the qty of ", product);
+        // Taking out the list of products in a array
+        const {products}= this.state;
+        // Finding the index of which product's qty is to be increased
+        const index = products.indexOf(product);
+
+        products[index].qty +=1;
+        this.setState({
+            products // or products: products we are writing shorthand notation is key and value are same
+        });
+    }
+    handleDecreaseQuantity = (product) => {
+        // console.log ("hey please decrease the qty of ", product);
+        // Taking out the list of products in a array
+        const {products}= this.state;
+        // // Finding the index of which product's qty is to be decreased
+        const index = products.indexOf(product);
+        if (products[index].qty == 0)
+        {
+            return;
+        }
+        products[index].qty -=1;
+
+        this.setState({
+            products // or products: products we are writing shorthand notation is key and value are same
+        });
+    }
+
     render(){
         const {products} = this.state
-       return(
-           <div className='cart'>
+        return(
+            <div className='cart'>
                {products.map((product)=>{
                    return (
                         <CartItem 
@@ -45,6 +74,8 @@ class Cart extends React.Component {
                             // func = {()=> console.log("Func in prop")}
                             // isLoggedIn = {false}
                             // jsx = {<h1>TEST</h1>}
+                            onIncreaseQuantity = {this.handleIncreaseQuantity}
+                            onDecreaseQuantity = {this.handleDecreaseQuantity}
                         />
                     )
                })}

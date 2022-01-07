@@ -31,52 +31,52 @@ class CartItem extends React.Component {
     //     });
     // }
 
-    // Third way to bind the function
-    increaseQuantity= () => {
-        // console.log('this',this.state);
-        // this.state.qty+=1; This statement only increase qty but doesn't re-render the state
+    // // Third way to bind the function
+    // increaseQuantity= () => {
+    //     // console.log('this',this.state);
+    //     // this.state.qty+=1; This statement only increase qty but doesn't re-render the state
         
-        // setState Form-I used when we didn't use the prevState
-        // this.setState({
-        //     qty: this.state.qty+1
-        // }, () => {});
+    //     // setState Form-I used when we didn't use the prevState
+    //     // this.setState({
+    //     //     qty: this.state.qty+1
+    //     // }, () => {});
 
-        // setState Form-II- if previous state is required
-        this.setState ((prevState) => {
-            return {
-                qty: prevState.qty+1
-            }
-        }, ()=> { console.log(this.state)})
-        // this.setState ((prevState) => {
-        //     return {
-        //         qty: prevState.qty+1
-        //     }
-        // }, ()=> { console.log(this.state)})
-        // this.setState ((prevState) => {
-        //     return {
-        //         qty: prevState.qty+1
-        //     }
-        // }, ()=> { console.log(this.state)})
-    }
+    //     // setState Form-II- if previous state is required
+    //     this.setState ((prevState) => {
+    //         return {
+    //             qty: prevState.qty+1
+    //         }
+    //     }, ()=> { console.log(this.state)})
+    //     // this.setState ((prevState) => {
+    //     //     return {
+    //     //         qty: prevState.qty+1
+    //     //     }
+    //     // }, ()=> { console.log(this.state)})
+    //     // this.setState ((prevState) => {
+    //     //     return {
+    //     //         qty: prevState.qty+1
+    //     //     }
+    //     // }, ()=> { console.log(this.state)})
+    // }
 
-    decreaseQuantity= () => {
-        const {qty}= this.state;
-        if (qty===0)
-        {
-            return;
-        }
-        // setState Form-I used when we didn't use the prevState
-        // this.setState({
-        //     qty: this.state.qty-1
-        // });
+    // decreaseQuantity= () => {
+    //     const {qty}= this.state;
+    //     if (qty===0)
+    //     {
+    //         return;
+    //     }
+    //     // setState Form-I used when we didn't use the prevState
+    //     // this.setState({
+    //     //     qty: this.state.qty-1
+    //     // });
 
-        // setState Form-II- if previous state is required
-        this.setState ((prevState) => {
-            return {
-                qty: prevState.qty-1
-            }
-        })
-    }
+    //     // setState Form-II- if previous state is required
+    //     this.setState ((prevState) => {
+    //         return {
+    //             qty: prevState.qty-1
+    //         }
+    //     })
+    // }
     render(){
         // Using Object Destructuring so to extract all the properties at a single time
         const {title,price,qty} = this.props.product;
@@ -97,13 +97,15 @@ class CartItem extends React.Component {
                             className='action-icons' 
                             src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png"
                             // onClick={this.increaseQuantity.bind(this)} this is the naive method to bind here only
-                            onClick={this.increaseQuantity} 
+                            // onClick={this.increaseQuantity}
+                            onClick={() => this.props.onIncreaseQuantity(this.props.product)} 
                         />
                         <img  
                             alt="decrease" 
                             className='action-icons' 
                             src="https://cdn-icons-png.flaticon.com/512/334/334047.png" 
-                            onClick={this.decreaseQuantity}
+                            // onClick={this.decreaseQuantity}
+                            onClick={() => this.props.onDecreaseQuantity(this.props.product)}
                         />
                         <img  
                             alt="delete" 
