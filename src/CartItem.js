@@ -77,19 +77,24 @@ const CartItem = (props) => {
     //         }
     //     })
     // }
-    
+
     // render (){
         // Using Object Destructuring so to extract all the properties at a single time
         // Extracting the products detail from product
         const {title,price,qty} = props.product;
         // Extracting the products and functions from props
-        const {product, onIncreaseQuantity, onDecreaseQuantity, onDeleteProduct}= props;
+        const {
+            product, 
+            onIncreaseQuantity, 
+            onDecreaseQuantity, 
+            onDeleteProduct
+        }= props;
         console.log('this.props', props);
         return(
             <div className='cart-item'>
                 {/* {this.props.jsx} */}
                 <div className='left-block'>
-                    <img style={styles.image}/>
+                    <img style={styles.image} src={product.img}/>
                 </div>
                 <div className='right-block'>
                     <div style={{fontSize: 25}}> {title} </div>
