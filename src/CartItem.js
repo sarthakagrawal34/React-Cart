@@ -77,48 +77,51 @@ const CartItem = (props) => {
     //         }
     //     })
     // }
-    // Using Object Destructuring so to extract all the properties at a single time
-    // Extracting the products detail from product
-    const {title,price,qty} = props.product;
-    // Extracting the products and functions from props
-    const {product, onIncreaseQuantity, onDecreaseQuantity, onDeleteProduct}= props;
-    console.log('this.props', props);
-    return(
-        <div className='cart-item'>
-            {/* {this.props.jsx} */}
-            <div className='left-block'>
-                <img style={styles.image}/>
-            </div>
-            <div className='right-block'>
-                <div style={{fontSize: 25}}> {title} </div>
-                <div style={{color: "red"}}> Rs. {price} </div>
-                <div style={{color: "gray"}}> Qty: {qty} </div>
-                <div className='cart-item-actions'>
-                    <img  
-                        alt="increase" 
-                        className='action-icons' 
-                        src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png"
-                        // onClick={this.increaseQuantity.bind(this)} this is the naive method to bind here only
-                        // onClick={this.increaseQuantity}
-                        onClick={() => onIncreaseQuantity(product)} 
-                    />
-                    <img  
-                        alt="decrease" 
-                        className='action-icons' 
-                        src="https://cdn-icons-png.flaticon.com/512/334/334047.png" 
-                        // onClick={this.decreaseQuantity}
-                        onClick={() => onDecreaseQuantity(product)}
-                    />
-                    <img  
-                        alt="delete" 
-                        className='action-icons' 
-                        src= "https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
-                        onClick={() => onDeleteProduct (product.id)}
-                    />
+    
+    // render (){
+        // Using Object Destructuring so to extract all the properties at a single time
+        // Extracting the products detail from product
+        const {title,price,qty} = props.product;
+        // Extracting the products and functions from props
+        const {product, onIncreaseQuantity, onDecreaseQuantity, onDeleteProduct}= props;
+        console.log('this.props', props);
+        return(
+            <div className='cart-item'>
+                {/* {this.props.jsx} */}
+                <div className='left-block'>
+                    <img style={styles.image}/>
+                </div>
+                <div className='right-block'>
+                    <div style={{fontSize: 25}}> {title} </div>
+                    <div style={{color: "red"}}> Rs. {price} </div>
+                    <div style={{color: "gray"}}> Qty: {qty} </div>
+                    <div className='cart-item-actions'>
+                        <img  
+                            alt="increase" 
+                            className='action-icons' 
+                            src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png"
+                            // onClick={this.increaseQuantity.bind(this)} this is the naive method to bind here only
+                            // onClick={this.increaseQuantity}
+                            onClick={() => onIncreaseQuantity(product)} 
+                        />
+                        <img  
+                            alt="decrease" 
+                            className='action-icons' 
+                            src="https://cdn-icons-png.flaticon.com/512/334/334047.png" 
+                            // onClick={this.decreaseQuantity}
+                            onClick={() => onDecreaseQuantity(product)}
+                        />
+                        <img  
+                            alt="delete" 
+                            className='action-icons' 
+                            src= "https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
+                            onClick={() => onDeleteProduct (product.id)}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    // }
 }
 
 const styles={
