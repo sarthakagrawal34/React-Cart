@@ -1,21 +1,21 @@
 import React from 'react';
 
 class CartItem extends React.Component {
-    constructor() {
-        // We have to call the constructor of parent class that is super() as we are inheriting state constructor in our parent constructor
-        super();
-        this.state= {
-            price: '999',
-            title: 'Phone',
-            qty: 1,
-            img: ''
-        }
-        // Second method to bind the function when there are multiple functions to bind we bind using this method
-        // this.increaseQuantity=this.increaseQuantity.bind(this);
+    // constructor() {
+    //     // We have to call the constructor of parent class that is super() as we are inheriting state constructor in our parent constructor
+    //     super();
+    //     this.state= {
+    //         price: '999',
+    //         title: 'Phone',
+    //         qty: 1,
+    //         img: ''
+    //     }
+    //     // Second method to bind the function when there are multiple functions to bind we bind using this method
+    //     // this.increaseQuantity=this.increaseQuantity.bind(this);
 
-        // Executing the testing function
-        // this.testing();
-    }
+    //     // Executing the testing function
+    //     // this.testing();
+    // }
     
     // Code to see how batching sometimes fails
     // testing () {
@@ -79,9 +79,11 @@ class CartItem extends React.Component {
     }
     render(){
         // Using Object Destructuring so to extract all the properties at a single time
-        const {title,price,qty} = this.state;
+        const {title,price,qty} = this.props.product;
+        console.log('this.props', this.props);
         return(
             <div className='cart-item'>
+                {/* {this.props.jsx} */}
                 <div className='left-block'>
                     <img style={styles.image}/>
                 </div>
