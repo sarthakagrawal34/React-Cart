@@ -1,5 +1,5 @@
 import React from 'react';
-import CartItem from './CartItem';
+// import CartItem from './CartItem';
 import Cart from './Cart';
 import Navbar from './NavBar';
 
@@ -62,7 +62,7 @@ class App extends React.Component {
       const {products}= this.state;
       // // Finding the index of which product's qty is to be decreased
       const index = products.indexOf(product);
-      if (products[index].qty == 0)
+      if (products[index].qty === 0)
       {
           return;
       }
@@ -83,7 +83,7 @@ class App extends React.Component {
       })
   }
   // Function which tell the total quantity count of cart
-  getCartCount = ()=>{
+  getCartCount = () => {
       const {products} = this.state;
 
       let count = 0;
@@ -93,6 +93,18 @@ class App extends React.Component {
       })
 
       return count;
+  }
+  // Function to get the total
+  getTotal = () => {
+      const {products} = this.state;
+
+      let cartTotal = 0;
+
+      products.map((product) => {
+        cartTotal += product.qty * product.price;
+      });
+
+      return cartTotal;
   }
   render(){
     const {products} = this.state
@@ -105,6 +117,9 @@ class App extends React.Component {
           onDecreaseQuantity = {this.handleDecreaseQuantity}
           onDeleteProduct = {this.handleDeleteProduct}
         />
+        <div style={{padding: 10, fontSize: 20}}>
+          TOTAL: {this.getTotal()}
+        </div>
       </div>
     )
   }
