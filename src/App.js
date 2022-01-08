@@ -2,6 +2,7 @@ import React from 'react';
 // import CartItem from './CartItem';
 import Cart from './Cart';
 import Navbar from './NavBar';
+import firebase from 'firebase/compat/app';
 
 // function App() {
 //   return (
@@ -17,31 +18,75 @@ class App extends React.Component {
     // We have to call the constructor of parent class that is super() as we are inheriting state constructor in our parent constructor
     super();
     this.state = {
-        products : [
-            {
-                price: '99',
-                title: 'Watch',
-                qty: 1,
-                img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
-                id: 1
-            },
-            {
-                price: '999',
-                title: 'Phone',
-                qty: 10,
-                img: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
-                id: 2
-            },
-            {
-                price: '99999',
-                title: 'Laptop',
-                qty: 4,
-                img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80',
-                id: 3
-            }
-        ]
+        // products : [
+        //     {
+        //         price: '99',
+        //         title: 'Watch',
+        //         qty: 1,
+        //         img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
+        //         id: 1
+        //     },
+        //     {
+        //         price: '999',
+        //         title: 'Phone',
+        //         qty: 10,
+        //         img: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
+        //         id: 2
+        //     },
+        //     {
+        //         price: '99999',
+        //         title: 'Laptop',
+        //         qty: 4,
+        //         img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80',
+        //         id: 3
+        //     }
+        // ]
+
+        // Now using firebase so initialize products as an empty array
+        products : [],
+        // Adding loader till when the products are being loaded
+        'loading': true
     }
   }
+
+  // Function to fetch initial products array
+  componentDidMount (){
+    // Now take use of function chaining
+    firebase
+      .firestore()
+      .collection('products')
+      .get()  // get() method returns a promise which retreive data
+      .then((snapshot) => {
+        // console.log(snapshot);
+
+        // Snapshot is the picture taken of the database
+        // snapshot.docs is the document which stores our data and return a doc.data()
+        // doc.data() contains all the data in the form of objects
+
+        // snapshot.docs.map((doc) => {
+        //   console.log(doc.data());
+        // })
+
+        // Fetch out in the products array
+        const products = snapshot.docs.map((doc) => {
+          const data = doc.data();
+
+          //Provide a 'id' field to the data so as to provide a unique key
+          data['id'] = doc.id;
+          return data;
+        });
+
+        // Now update the state
+        this.setState({
+          products:products,
+          // Removing loader as the products are loaded
+          loading: false
+        })
+
+      })
+  }
+
+
   // Function to Increase the quantity
   handleIncreaseQuantity = (product) => {
       // console.log ("hey please increase the qty of ", product);
@@ -107,7 +152,7 @@ class App extends React.Component {
       return cartTotal;
   }
   render(){
-    const {products} = this.state
+    const {products, loading} = this.state
     return(
       <div className='App'>
         <Navbar count = {this.getCartCount()}/>
@@ -117,6 +162,7 @@ class App extends React.Component {
           onDecreaseQuantity = {this.handleDecreaseQuantity}
           onDeleteProduct = {this.handleDeleteProduct}
         />
+        {loading && <h1>Loading Products ....</h1>}
         <div style={{padding: 10, fontSize: 20}}>
           TOTAL: {this.getTotal()}
         </div>
