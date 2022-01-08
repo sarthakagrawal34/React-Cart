@@ -11,3 +11,9 @@ In this project I have made the cart app similar to amazon, myntra etc using cre
 props.
 ● Differentiated between functional and class components.
 ● Learnt about filter() function in brief.
+● Learned about SQL and non-SQL database.
+● Learned about the real-time database.
+● Learned about the firebase database and how it works.
+● Learned about component lifecycles.
+● Learnt about functional chaining.
+
