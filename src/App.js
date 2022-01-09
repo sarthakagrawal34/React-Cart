@@ -95,6 +95,8 @@ class App extends React.Component {
     //   .firestore()
     this.db
       .collection('products')
+      // .where('price', '>', 2000)
+      .orderBy('price', 'desc')
       .onSnapshot((snapshot) => {
         const products = snapshot.docs.map((doc) => {
           const data = doc.data();
@@ -126,7 +128,7 @@ class App extends React.Component {
     });
     */
     
-    // Now using firebase update the qty
+    // // Now use the firebase way to increase the quantity so that it reflects in our firebase database
     const docRef = this.db.collection('products').doc(products[index].id);
     docRef
       .update({
@@ -159,6 +161,7 @@ class App extends React.Component {
     });
     */
 
+    // Now use the firebase way to decrease the quantity so that it reflects in our firebase database
     const docRef = this.db.collection('products').doc(products[index].id);
     docRef
       .update({
@@ -175,10 +178,23 @@ class App extends React.Component {
   // Function to Delete the Product
   handleDeleteProduct = (id) => {
     const {products} = this.state;
+    /*
     const items = products.filter((item) => item.id !== id) // Returns an array of the remaining items
     this.setState({
         products : items
     })
+    */
+   // Now use the firebase way to delete the product so that it reflects in our firebase database
+   const docRef = this.db.collection('products').doc(id);
+   docRef
+    .delete()
+    .then(() => {
+      console.log("Product deleted successfully");
+    })
+    .catch((error) => {
+      console.log("Error in deleting product :", error);
+    })
+   
   }
   // Function which tell the total quantity count of cart
   getCartCount = () => {
