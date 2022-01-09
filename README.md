@@ -16,4 +16,7 @@ props.
 ● Learned about the firebase database and how it works.
 ● Learned about component lifecycles.
 ● Learnt about functional chaining.
+● Learned about get () method and onSnapshot () method.
+● Learned about adding, updating and deleting methods in firebase.
+● Learned about querying in firebase.
 
