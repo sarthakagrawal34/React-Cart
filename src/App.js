@@ -128,16 +128,15 @@ class App extends React.Component {
     
     // Now using firebase update the qty
     const docRef = this.db.collection('products').doc(products[index].id);
-
     docRef
       .update({
         qty : products[index].qty + 1
       })
       .then(() => {
-        alert("Quantity increased successfully");
+        console.log("Quantity increased successfully");
       })
       .catch((error) => {
-        alert("Error in increasing quantity");
+        console.log("Error in increasing quantity :", error);
       })
 
   }
@@ -152,14 +151,26 @@ class App extends React.Component {
     {
         return;
     }
-    
+    /*
     products[index].qty -=1;
 
     this.setState({
         products // or products: products we are writing shorthand notation is key and value are same
     });
-    
-    
+    */
+
+    const docRef = this.db.collection('products').doc(products[index].id);
+    docRef
+      .update({
+        qty : products[index].qty - 1
+      })
+      .then(() => {
+        console.log("Quantity decreased successfully");
+      })
+      .catch((error) => {
+        console.log("Error in decreasing quantity :", error);
+      })
+     
   }
   // Function to Delete the Product
   handleDeleteProduct = (id) => {
