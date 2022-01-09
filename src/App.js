@@ -18,29 +18,29 @@ class App extends React.Component {
     // We have to call the constructor of parent class that is super() as we are inheriting state constructor in our parent constructor
     super();
     this.state = {
-        // products : [
-        //     {
-        //         price: '99',
-        //         title: 'Watch',
-        //         qty: 1,
-        //         img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
-        //         id: 1
-        //     },
-        //     {
-        //         price: '999',
-        //         title: 'Phone',
-        //         qty: 10,
-        //         img: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
-        //         id: 2
-        //     },
-        //     {
-        //         price: '99999',
-        //         title: 'Laptop',
-        //         qty: 4,
-        //         img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80',
-        //         id: 3
-        //     }
-        // ]
+        /*products : [
+            {
+                price: '99',
+                title: 'Watch',
+                qty: 1,
+                img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
+                id: 1
+            },
+            {
+                price: '999',
+                title: 'Phone',
+                qty: 10,
+                img: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60',
+                id: 2
+            },
+            {
+                price: '99999',
+                title: 'Laptop',
+                qty: 4,
+                img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80',
+                id: 3
+            }
+        ]*/
 
         // Now using firebase so initialize products as an empty array
         products : [],
@@ -51,7 +51,10 @@ class App extends React.Component {
 
   // Function to fetch initial products array
   componentDidMount (){
+
     // Now take use of function chaining
+    // The following method is the get() method which fetch the data but it is not real-time data
+    /*
     firebase
       .firestore()
       .collection('products')
@@ -81,9 +84,29 @@ class App extends React.Component {
           products:products,
           // Removing loader as the products are loaded
           loading: false
-        })
+        });
+      });
+    */
 
-      })
+    // Using onSnapshot method which is a listener for fetching data which updates data in real-time
+    firebase
+      .firestore()
+      .collection('products')
+      .onSnapshot((snapshot) => {
+        const products = snapshot.docs.map((doc) => {
+          const data = doc.data();
+
+          //Provide a 'id' field to the data so as to provide a unique key
+          data['id'] = doc.id;
+          return data;
+        });
+        // Now update the state using this.setState
+        this.setState({
+          products:products,
+          // Removing loader as the products are loaded
+          loading: false
+        });
+      });
   }
 
 
